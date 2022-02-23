@@ -14,7 +14,13 @@ class ComicController extends Controller
      */
     public function index()
     {
-        //
+        $comics = Comic::paginate(15);
+        $data = [
+            'comics' => $comics,
+            'title' => 'Comics Home'
+        ];
+
+        return view('comics.index', $data);
     }
 
     /**
@@ -50,7 +56,11 @@ class ComicController extends Controller
      */
     public function show(Comic $comic)
     {
-        dd($comic);
+        $data = [
+            'comic' => $comic,
+            'title' => $comic->name
+        ];
+        return view('comics.show', $data);
     }
 
     /**
