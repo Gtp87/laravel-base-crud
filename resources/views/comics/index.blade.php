@@ -21,6 +21,7 @@
                         <tr class="table-primary">
                             <th>Title</th>
                             <th>Author</th>
+                            <th>Description</th>
                             <th>Price</th>
                             <th>Actions</th>
                         </tr>
@@ -30,6 +31,7 @@
                         <tr>
                             <td>{{ $comic->title }}</td>
                             <td>{{ $comic->author }}</td>
+                            <td>{{ $comic->description }}</td>
                             <td>{{ $comic->price }} €</td>
                             <td><a class="btn btn-primary" href="{{ route('comics.show', $comic) }}">View</a></td>
                         </tr>
