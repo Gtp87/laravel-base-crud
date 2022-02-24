@@ -11,7 +11,7 @@
     </div>
     <div class="row">
         <div class="col">
-            <a href="{{ route('comics.create') }}" class="btn btn-success">Add new comic</a>
+            <a href="{{ route('comics.create') }}" class="btn btn-success mb-2">Add new comic</a>
         </div>
     </div>
     <div class="row">
@@ -21,7 +21,7 @@
                     <tr class="table-success">
                         <th>Title</th>
                         <th>Author</th>
-                        <th>Description</th>
+                        <th class="w-50">Description</th>
                         <th>Price</th>
                         <th>Actions</th>
                     </tr>
@@ -29,11 +29,12 @@
                 <tbody>
                 @foreach ($comics as $comic)
                     <tr>
-                        <td>{{ $comic->title }}</td>
+                        <td class="text-capitalize">{{ $comic->title }}</td>
                         <td>{{ $comic->author }}</td>
                         <td>{{ $comic->description }}</td>
                         <td>{{ $comic->price }} €</td>
-                        <td><a class="btn btn-success" href="{{ route('comics.show', $comic) }}">View</a></td>
+                        <td><a class="btn btn-success" href="{{ route('comics.show', $comic) }}">View</a>
+                        <a class="btn btn-success" href="{{ route('comics.edit', $comic) }}">Edit</a></td>
                     </tr>
                 @endforeach
                 </tbody>
