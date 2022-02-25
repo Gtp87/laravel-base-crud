@@ -8,6 +8,14 @@
 <div class="container">
     <div class="row">
         <div class="col">
+            @if (session('status'))
+                <div class="alert alert-success">
+                    {{ session('status') }}
+                </div>
+            @endif
+        </div>
+    <div class="row">
+        <div class="col">
                 <h1>{{ $comic->title }}</h1>
         </div>
     </div>

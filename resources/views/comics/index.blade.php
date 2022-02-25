@@ -16,6 +16,15 @@
     </div>
     <div class="row">
         <div class="col">
+            @if (session('status'))
+                <div class="alert alert-success">
+                    {{ session('status') }}
+                </div>
+            @endif
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
                 <table class="table table-success">
                 <thead>
                     <tr class="table-success">
@@ -23,7 +32,7 @@
                         <th>Author</th>
                         <th class="w-50">Description</th>
                         <th>Price</th>
-                        <th>Actions</th>
+                        <th colspan="3">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -33,8 +42,15 @@
                         <td>{{ $comic->author }}</td>
                         <td>{{ $comic->description }}</td>
                         <td>{{ $comic->price }} €</td>
-                        <td><a class="btn btn-success" href="{{ route('comics.show', $comic) }}">View</a>
-                        <a class="btn btn-success" href="{{ route('comics.edit', $comic) }}">Edit</a></td>
+                        <td><a class="btn btn-success" href="{{ route('comics.show', $comic) }}">View</a></td>
+                        <td><a class="btn btn-success" href="{{ route('comics.edit', $comic) }}">Edit</a></td>
+                        <td>
+                            <form action="{{route('comics.destroy', $comic->id)}}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <input class="btn btn-danger" type="submit" value="Delete">
+                            </form>
+                        </td>
                     </tr>
                 @endforeach
                 </tbody>

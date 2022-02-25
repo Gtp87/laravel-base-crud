@@ -7,6 +7,14 @@ use Illuminate\Http\Request;
 
 class ComicController extends Controller
 {
+    protected $ruleValidation = [
+        'title' => 'required|max:50',
+        'author' => 'required|max:40',
+        'price' => 'required|numeric',
+        'genre' => 'required|max:50',
+        'description' => 'nullable',
+        'photo' => 'nullable|max:255'
+    ];
     /**
      * Display a listing of the resource.
      *
@@ -41,11 +49,15 @@ class ComicController extends Controller
      */
     public function store(Request $request)
     {
+        $validateData = $request->validate($this->ruleValidation);
+
         $data = $request->all();
         $comic = new Comic();
         $comic->fill($data);
         $comic->save();
-        return redirect()->route('comics.show', $comic->id);
+        return redirect()
+            ->route('comics.show', $comic->id)
+            ->with('status', "Comic $comic->title saved");
     }
 
     /**
@@ -83,12 +95,16 @@ class ComicController extends Controller
      */
     public function update(Request $request, Comic $comic)
     {
+        $validateData = $request->validate($this->ruleValidation);
+
         $data = $request->all();
         $updated = $comic->update($data);
         if (!$updated) {
             dd('aggiornamento non riuscito');
         }
-        return redirect()->route('comics.show', $comic->id);
+        return redirect()
+            ->route('comics.show', $comic->id)
+            ->with('status', "Comic $comic->title saved");
     }
 
     /**
@@ -99,6 +115,10 @@ class ComicController extends Controller
      */
     public function destroy(Comic $comic)
     {
-        //
+        $comic->delete();
+
+        return redirect()
+            ->route('comics.index')
+            ->with('status', "Comic $comic->title deleted!");
     }
 }
